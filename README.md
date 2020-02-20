@@ -1,5 +1,5 @@
 #CoinFlip DApp
 
-This DApp project was created as part of an ethereum smart contract programming course. This repository is made for education purposes. Great course by Ivan & Filip  https://academy.ivanontech.com/
+This DApp was created as part of a mission in Ethereum Smart Contract Programming Course. https://academy.ivanontech.com/
 
 
