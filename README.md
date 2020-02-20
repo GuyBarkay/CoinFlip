@@ -1,5 +1,6 @@
 CoinFlip DApp Exercise
 
-This DApp was created as part of a mission in Ethereum Smart Contract Programming Course. https://academy.ivanontech.com/
+This DApp was created as part of a mission in the "Ethereum Smart Contract Programming Course". 
+https://academy.ivanontech.com/
 
 
