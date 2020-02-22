@@ -39,6 +39,7 @@ contract Coinflip is Ownable1 {
      uint  w = winBet;
      winBet= 0;
      msg.sender.transfer(w);
+     return w;
     }
 
 
