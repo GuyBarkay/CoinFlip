@@ -35,6 +35,11 @@ contract Coinflip is Ownable1 {
   return int(senderBalance[msg.sender]);
   }
 
+  function toTransferBet(uint winBet) private returns(uint) {
+     uint  w = winBet;
+     winBet= 0;
+     msg.sender.transfer(w);
+    }
 
 
    function flip () public payable costs (0.1 ether ) {
@@ -42,12 +47,16 @@ contract Coinflip is Ownable1 {
     acountBalance += bet;
     senderBalance[msg.sender] -= msg.value;
 
-    uint winRatio = 3;
+
+
     if(random() == 0 ){
     lastFlip [msg.sender] = 1;
-      msg.sender.transfer(bet*winRatio);
-      acountBalance -= bet*winRatio;
-      senderBalance[msg.sender] += bet*winRatio;
+     uint winRatio = 3;
+     uint winBet = bet*winRatio;
+    acountBalance -= winBet;
+    senderBalance[msg.sender] += winBet;
+    toTransferBet(winBet);
+
     }
     else{
      lastFlip[msg.sender]= 0;
@@ -64,8 +73,10 @@ contract Coinflip is Ownable1 {
   function deposit() public onlyOwner payable  {
    acountBalance += msg.value;
 
+
    emit Deposit(msg.sender, msg.value);
   }
+
 
     function withdrawAll() public onlyOwner returns(uint) {
         uint toTransfer = acountBalance;
