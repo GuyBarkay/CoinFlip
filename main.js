@@ -2,13 +2,13 @@ var web3 = new Web3(Web3.givenProvider);
 var contractInstance;
 $(document).ready(function() {
     window.ethereum.enable().then(function(accounts){
-      contractInstance = new web3.eth.Contract(window.abi,"0xb837C9a34427903769C83c081625567A457CCbd6", {from: accounts[0]});
+      contractInstance = new web3.eth.Contract(window.abi,"0x148d5fD8d49f96fABc2F807FF390bE292937BAc4", {from: accounts[0]});
       //console.log(contractInstance);
           });
 
           $("#flip_button").click(coinFlip);
-         $("#deposit_button").click(deposit);
-
+          $("#deposit_button").click(deposit);
+          $("#withdrawAll_button").click(withdrawAll);
         });
 
 function deposit(){
@@ -90,4 +90,10 @@ function playerBalance() {
       console.log( "player balance " +balanceOfPlayer );   //+res/1000000000000000000);
       $("#player_balance_output").text(+balanceOfPlayer);  //res/1000000000000000000);
   })
+}
+
+function withdrawAll() {
+  contractInstance.methods.withdrawAll().send();
+  getBalance();
+  playerBalance();
 }
