@@ -47,7 +47,7 @@ contract Coinflip is Ownable1 {
     require (msg.value*2< acountBalance);
      uint bet = msg.value;
     acountBalance += bet;
-    senderBalance[msg.sender] -= msg.value;
+    senderBalance[msg.sender] -= bet;
 
 
 
