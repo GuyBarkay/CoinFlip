@@ -61,7 +61,7 @@ contract Coinflip is Ownable1 {
     }
     else{
      lastFlip[msg.sender]= 0;
-     senderBalance[msg.sender] += 0;
+     //senderBalance[msg.sender] += 0;
     }
    //getLastFlip();
    //getPlayerBalance();
