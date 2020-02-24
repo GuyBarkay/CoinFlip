@@ -35,28 +35,29 @@ contract Coinflip is Ownable1 {
   return int(senderBalance[msg.sender]);
   }
 
-  function toTransferBet(uint winBet) private returns(uint) {
-     uint  w = winBet;
-     winBet= 0;
-     msg.sender.transfer(w);
-     return w;
-    }
+  //function toTransferBet(uint winBet) private returns(uint) {     used first in order to avoid "Re entrency" fallback risks but using transfer eliminate the risk inherently
+     //uint  w = winBet;
+     //winBet= 0;
+    //msg.sender.transfer(w);
+    // return w;
+  //  }
 
 
    function flip () public payable costs (0.1 ether ) {
     require (msg.value*2< acountBalance);
-    uint bet = msg.value;
+     uint bet = msg.value;
     acountBalance += bet;
     senderBalance[msg.sender] -= msg.value;
 
-if(random() == 0 ){
+
+
+    if(random() == 0 ){
     lastFlip [msg.sender] = 1;
      uint winBet = bet*3;
     acountBalance -= winBet;
     senderBalance[msg.sender] += winBet;
-    
-    //toTransferBet(winBet); unnecessary as transfer() is safe against Re enterency fallback 
-     msg.sender.transfer(w);
+    //toTransferBet(winBet);
+    msg.sender.transfer(winBet);
     }
     else{
      lastFlip[msg.sender]= 0;
@@ -82,6 +83,8 @@ if(random() == 0 ){
         uint toTransfer = acountBalance;
         acountBalance = 0;
         msg.sender.transfer(toTransfer);
+        senderBalance[msg.sender]= 0;
         return toTransfer;
+
     }
 }
