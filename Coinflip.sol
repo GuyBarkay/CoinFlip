@@ -34,17 +34,18 @@ contract Coinflip is Ownable1 {
   function getPlayerBalance() public view returns (int){
   return int(senderBalance[msg.sender]);
   }
-
-  //function toTransferBet(uint winBet) private returns(uint) {
-     //uint  w = winBet;
-     //winBet= 0;
-    //msg.sender.transfer(w);
-    // return w;
-  //  }
+/*
+  function toTransferBet(uint winBet) private returns(uint) {
+     uint  w = winBet;
+     winBet= 0;
+    msg.sender.transfer(w);
+    return w;
+   }
+   */
 
 
    function flip () public payable costs (0.1 ether ) {
-    require (msg.value*2< acountBalance);
+    require (msg.value< acountBalance);
      uint bet = msg.value;
     acountBalance += bet;
     senderBalance[msg.sender] -= bet;
@@ -53,11 +54,11 @@ contract Coinflip is Ownable1 {
 
     if(random() == 0 ){
     lastFlip [msg.sender] = 1;
-     uint winBet = bet*3;
+     uint winBet = bet*2;
     acountBalance -= winBet;
     senderBalance[msg.sender] += winBet;
-    //toTransferBet(winBet);
-    msg.sender.transfer(winBet);
+    //toTransferBet(winBet);  for learning purpose - may not be  require against re entrency as using transfer() is safe.
+    msg.sender.transfer(winBet); // assuming that transfer() gas limit is safe enough against Re entrency fallback.
     }
     else{
      lastFlip[msg.sender]= 0;
